@@ -1,0 +1,12 @@
+kafka:
+  bootstrap-servers: localhost:9092
+  group:
+    id: test-consumer-group
+  topic:
+    poc: poc
+
+rabbit:
+  queue: poc
+
+server:
+  port: 9090
