@@ -10,3 +10,8 @@ rabbit:
 
 server:
   port: 9090
+spring:
+  data:
+    cassandra:
+      keyspace-name: poc
+
