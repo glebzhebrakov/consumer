@@ -4,6 +4,7 @@ import hme.poc.hmepoc.dto.Statistic
 import hme.poc.hmepoc.dto.TestMessage
 import hme.poc.hmepoc.repository.MessageCassandraRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Lazy
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 
