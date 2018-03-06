@@ -6,7 +6,8 @@ kafka:
     poc: poc
 
 rabbit:
-  queue: poc
+  queueName: poc
+  exchangeName: poce
 
 server:
   port: 0
