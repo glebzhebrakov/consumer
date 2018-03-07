@@ -23,6 +23,8 @@ class RabbitMQInboundGateway implements MessageConsumingPort {
     @RabbitListener(queues = '${rabbit.queueName}')
     @Override
     void receive(byte[] message) {
-        messageStoragePort.save(objectMapper.readValue(message, TestMessage))
+        def msg = objectMapper.readValue(message, TestMessage)
+        msg.id = UUID.randomUUID().toString()
+        messageStoragePort.save(msg)
     }
 }

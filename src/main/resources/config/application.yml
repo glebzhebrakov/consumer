@@ -9,6 +9,7 @@ rabbit:
   queueName: poc
   exchangeName: poce
 
+
 server:
   port: 0
 spring:

@@ -7,18 +7,16 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKey
 import org.springframework.data.cassandra.core.mapping.Table
 import org.springframework.data.redis.core.RedisHash
 
-@Canonical
 @RedisHash("TestMessage")
-@Table
 class TestMessage implements Serializable {
     String payload
 
 
     String id
 
-    @PrimaryKey
     @JsonIgnore
     String kasssandraId = UUID.randomUUID().toString()
 
+    String randId = UUID.randomUUID().toString()
     long timestamp
 }
