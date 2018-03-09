@@ -12,9 +12,3 @@ rabbit:
 
 server:
   port: 0
-spring:
-  data:
-    cassandra:
-      keyspace-name: poc
-#      contact-points: 192.168.107.170
-

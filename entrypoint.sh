@@ -8,7 +8,7 @@ CMD="java \
     -XX:MaxHeapFreeRatio=40 \
     -XX:GCTimeRatio=4 \
     -XX:AdaptiveSizePolicyWeight=90
-    -Dspring.profiles.active=kafka,mongodb \
+    -Dspring.profiles.active=azure,mongodb \
     $*"
 
 echo ${CMD}
