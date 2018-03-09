@@ -40,6 +40,7 @@ dependencies {
 	compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
 	compile('org.springframework.data:spring-data-redis')
 	compile('org.springframework.data:spring-data-cassandra')
+	compile('org.springframework.data:spring-data-mongodb')
 
 	compile('org.springframework.kafka:spring-kafka')
 	compile('org.codehaus.groovy:groovy')

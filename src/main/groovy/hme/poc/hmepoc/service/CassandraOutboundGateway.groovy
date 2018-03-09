@@ -1,5 +1,6 @@
 package hme.poc.hmepoc.service
 
+import hme.poc.hmepoc.dto.CassandraTestMessage
 import hme.poc.hmepoc.dto.Statistic
 import hme.poc.hmepoc.dto.TestMessage
 import hme.poc.hmepoc.repository.MessageCassandraRepository
@@ -21,7 +22,13 @@ class CassandraOutboundGateway implements MessageStoragePort {
 
     @Override
     void save( final TestMessage message) {
-        messageCassandraRepository.save(message)
+
+        messageCassandraRepository.save(new CassandraTestMessage().with {
+            id = message.id
+            timestamp = message.timestamp
+            payload = message.payload
+            it
+        })
     }
 
     @Override
