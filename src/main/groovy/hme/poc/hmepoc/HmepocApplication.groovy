@@ -7,6 +7,8 @@ import com.microsoft.azure.eventhubs.PartitionReceiver
 import com.microsoft.azure.eventprocessorhost.EventProcessorHost
 import com.microsoft.azure.eventprocessorhost.IEventProcessorFactory
 import com.microsoft.azure.eventprocessorhost.PartitionContext
+import com.mongodb.MongoClient
+import com.mongodb.MongoClientURI
 import hme.poc.hmepoc.dto.TestMessage
 import hme.poc.hmepoc.service.AzureEventHubInboundGateway
 import org.slf4j.Logger
@@ -42,6 +44,12 @@ class HmepocApplication {
 	@Bean
 	RedisConnectionFactory connectionFactory() {
 		new JedisConnectionFactory()
+	}
+
+	@Bean
+	MongoClient mongoClient(@Value('${azure.mongoConnectionString}') String mongoConnectionString) {
+		def mongoClient = new MongoClient(new MongoClientURI(mongoConnectionString))
+		mongoClient
 	}
 
 	@Bean

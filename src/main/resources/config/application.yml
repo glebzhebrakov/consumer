@@ -12,3 +12,8 @@ rabbit:
 
 server:
   port: 0
+
+azure:
+  connectionString:
+  storageConnectionString:
+  mongoConnectionString:
