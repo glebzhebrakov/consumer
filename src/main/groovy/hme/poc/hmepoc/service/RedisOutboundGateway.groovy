@@ -30,4 +30,9 @@ class RedisOutboundGateway implements MessageStoragePort {
             it
         }
     }
+
+    @Override
+    List<TestMessage> aggregateBySlidingWindow(long windowInMs) {
+        []
+    }
 }

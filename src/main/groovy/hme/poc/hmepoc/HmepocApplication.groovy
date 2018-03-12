@@ -19,6 +19,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Profile
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
@@ -46,11 +47,11 @@ class HmepocApplication {
 		new JedisConnectionFactory()
 	}
 
-	@Bean
-	MongoClient mongoClient(@Value('${azure.mongoConnectionString}') String mongoConnectionString) {
-		def mongoClient = new MongoClient(new MongoClientURI(mongoConnectionString))
-		mongoClient
-	}
+//	@Bean
+//	MongoClient mongoClient(@Value('${azure.mongoConnectionString}') String mongoConnectionString) {
+//		def mongoClient = new MongoClient(new MongoClientURI(mongoConnectionString))
+//		mongoClient
+//	}
 
 	@Bean
 	RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {

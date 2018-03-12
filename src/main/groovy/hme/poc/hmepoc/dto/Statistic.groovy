@@ -5,4 +5,5 @@ import groovy.transform.Canonical
 @Canonical
 class Statistic {
     long messagesCount
+    List<Pair> factCounts
 }

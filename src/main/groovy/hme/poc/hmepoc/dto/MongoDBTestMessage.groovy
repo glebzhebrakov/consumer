@@ -14,4 +14,5 @@ class MongoDBTestMessage {
     String payload
     String id
     long timestamp
+    long consumedOn
 }

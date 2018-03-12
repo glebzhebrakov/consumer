@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository
 
 @Profile('mongodb')
 @Repository
-interface MessageMongoDBRepository extends MongoRepository<MongoDBTestMessage, String> {
-}
+interface MessageMongoDBRepository extends MongoRepository<MongoDBTestMessage, String>, MongoDBRepositoryExtension {}

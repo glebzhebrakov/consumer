@@ -25,15 +25,18 @@ class MongoDBOutboundGateway implements MessageStoragePort {
             id = message.id
             timestamp = message.timestamp
             payload = message.payload
+            consumedOn = System.currentTimeMillis()
             it
         })
     }
 
     @Override
     Statistic statistic() {
-        new Statistic().with {
-            messagesCount = messageMongoDBRepository.count()
-            it
-        }
+        messageMongoDBRepository.factsStatistic()
+    }
+
+    @Override
+    List<TestMessage> aggregateBySlidingWindow(long windowInMs) {
+       []
     }
 }

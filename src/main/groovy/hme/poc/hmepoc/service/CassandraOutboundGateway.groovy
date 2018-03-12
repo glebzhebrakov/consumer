@@ -38,4 +38,9 @@ class CassandraOutboundGateway implements MessageStoragePort {
             it
         }
     }
+
+    @Override
+    List<TestMessage> aggregateBySlidingWindow(long windowInMs) {
+        []
+    }
 }
