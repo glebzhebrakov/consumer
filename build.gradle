@@ -42,6 +42,7 @@ dependencies {
 	compile('org.springframework.data:spring-data-redis')
 //	compile('org.springframework.data:spring-data-cassandra')
 	compile('org.springframework.data:spring-data-mongodb')
+	compile group: 'org.apache.commons', name: 'commons-io', version: '1.3.2'
 
 	compile('org.springframework.kafka:spring-kafka')
 	compile('org.codehaus.groovy:groovy')
@@ -60,3 +61,5 @@ dependencyManagement {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
+
+apply from: "$rootDir/gradle/spock.gradle"
