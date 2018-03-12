@@ -40,7 +40,7 @@ class MongoDBRepositoryExtensionImpl implements MongoDBRepositoryExtension {
 
         def aggregation = Aggregation.newAggregation( payloadGroup, sortCountDesc, projectToMatchModel )
         AggregationResults<Pair> result = mongoOperations.aggregate(aggregation, 'mongoDBTestMessage', Pair)
-
+//
         statistic.factCounts = result as List
         statistic
     }
