@@ -1,0 +1,101 @@
+package hme.poc.hmepoc.dto.domain.transformation
+
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+
+@Document
+class TransformedAggregation {
+
+    @Id
+    String mongoId
+
+    String storeDay
+    String storeUID
+    String departureTime
+    Long totalTimeInLine
+    String type
+    String storeNumber
+    Long daypartIndex
+    String firstJobProcessedTime
+    String partitionId
+    Long alert
+    Long arrival
+    Long booth
+    Long cashier
+    Long delivery
+    Long menuBoard
+    Long menuBoard1
+    Long menuBoard2
+    Long orderPoint
+    Long orderPoint1
+    Long orderPoint2
+    Long pickup
+    Long preAlert
+    Long preLoop
+    Long preWarning
+    Long presenter
+    Long service
+    Long window1
+    Long window2
+    Long orderPoint_1
+    Long orderPoint_2
+    Long lane1Queue
+    Long lane1Queue2
+    Long lane1Total
+    Long lane1Total2
+    Long lane2Queue
+    Long lane2Queue2
+    Long lane2Total
+    Long lane2Total2
+    Long laneQueue
+    Long laneQueue2
+    Long laneTotal
+    Long laneTotal2
+    Long maxOneLaneEvents
+    Long maxTwoLaneEvents
+    Long maxYLaneEvents
+    Long totalEvent
+    Long totalEvent1
+    Long totalEvent2
+    Long menu_1
+    Long menu_2
+    Long service_1
+    Long service_2
+    Long pre_Warning
+    Long enu
+    Long menu1
+    Long menu2
+    Long pre_Loop
+    Long preLoop1
+    Long preLoop2
+    Long pre_Alert
+    Long preAlert1
+    Long preAlert2
+    Long alert1
+    Long alert2
+    Long arrival1
+    Long arrival2
+    Long preWarning1
+    Long preWarning2
+    Long booth1
+    Long booth2
+    Long delivery1
+    Long delivery2
+    Long greet
+    Long greet1
+    Long greet2
+    Long greet_1
+    Long greet_2
+    Long presenter1
+    Long presenter2
+    Long service1
+    Long service2
+    Long orderPnt1
+    Long orderPnt2
+    Long order_1
+    Long order_2
+    Long order1
+    Long order2
+    Long pickupWindow
+    Long waitArea
+}
