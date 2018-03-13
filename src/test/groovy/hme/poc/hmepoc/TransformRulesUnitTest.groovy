@@ -15,7 +15,10 @@ class TransformRulesUnitTest extends BaseUnitTest {
         def objectMapper = new ObjectMapper()
 
         when: 'convert to objects'
+        long startTime = System.currentTimeMillis()
         def result = objectMapper.readValue(text, objectMapper.getTypeFactory().constructCollectionType(List, EventRecord))
+        long endTime = System.currentTimeMillis()
+        print(endTime-startTime)
 
         then: 'all ok'
         result

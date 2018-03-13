@@ -1,9 +1,7 @@
 package hme.poc.hmepoc.dto.domain
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 class EventRecord {
 
     @JsonProperty('@StoreNumber')
@@ -19,8 +17,14 @@ class EventRecord {
     String eventProcessedUtcTime
 
     @JsonProperty('PartitionId')
-    int partitionId
+    Integer partitionId
 
     @JsonProperty('EventEnqueuedUtcTime')
     String eventEnqueuedUtcTime
+
+    @JsonProperty('RCDRecords')
+    RCDRecords rcdRecords
+
+    @JsonProperty('LaneConfig')
+    LaneConfig laneConfig
 }
