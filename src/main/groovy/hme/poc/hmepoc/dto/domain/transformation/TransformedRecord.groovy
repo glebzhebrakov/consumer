@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 class TransformedRecord {
     @Id
     String mongoId
-
+    String currentDateTimeHour
     String storeUID
     String departureTime
     Long totalTimeInLine

@@ -33,6 +33,7 @@ class TransformRecordsRepositoryExtensionImpl implements TransformRecordsReposit
                 'daypartIndex',
                 'storeDay',
                 'firstJobProcessedTime',
+                'currentDateTimeHour',
                 'partitionId'
         )
                 .addToSet('storeUID').as('storeUID')
@@ -43,6 +44,7 @@ class TransformRecordsRepositoryExtensionImpl implements TransformRecordsReposit
                 .addToSet('daypartIndex').as('daypartIndex')
                 .addToSet('storeDay').as('storeDay')
                 .addToSet('firstJobProcessedTime').as('firstJobProcessedTime')
+                .addToSet('currentDateTimeHour').as('currentDateTimeHour')
                 .addToSet('partitionId').as('partitionId')
                 .max('detectorEvents.alert.value').as('alert')
                 .max('detectorEvents.arrival.value').as('arrival')

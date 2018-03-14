@@ -5,6 +5,9 @@ import hme.poc.hmepoc.dto.domain.transformation.DetectorEvents
 import hme.poc.hmepoc.dto.domain.transformation.TransformedRecord
 import hme.poc.hmepoc.repository.TransformRecordsRepository
 import org.apache.tomcat.websocket.TransformationResult
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import org.joda.time.format.ISODateTimeFormat
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -34,9 +37,7 @@ class DefaultTransformer implements InputTransformer {
                     storeNumber = event.storeNumber
                     daypartIndex = record.dpIndex
                     storeDay = record.storeDay
-                    /**
-                     * part with DATETIMEFROMPARTS
-                     * **/
+                    currentDateTimeHour = toISO8601(record.departureTime)
                     arrivalTime = event.eventEnqueuedUtcTime
                     firstJobProcessedTime = event.eventProcessedUtcTime
                     partitionId = event.partitionId
@@ -57,6 +58,20 @@ class DefaultTransformer implements InputTransformer {
             transformRecordsRepository.save(it)
         }
         transformations
+    }
+
+    private static String toISO8601(String time) {
+        def parsedDate = new DateTime(time)
+        def res = new DateTime()
+                .withYear(parsedDate.getYear())
+                .withMonthOfYear(parsedDate.getMonthOfYear())
+                .withDayOfMonth(parsedDate.getDayOfMonth())
+                .withHourOfDay(parsedDate.getHourOfDay())
+                .withMinuteOfHour(0)
+                .withSecondOfMinute(0)
+                .withMillisOfSecond(0)
+                .withZone(DateTimeZone.UTC)
+        ISODateTimeFormat.dateTime().print(res)
     }
 
 }

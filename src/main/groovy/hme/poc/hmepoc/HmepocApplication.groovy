@@ -61,30 +61,30 @@ class HmepocApplication {
 		template
 	}
 
-	@Bean
-	EventProcessorHost eventProcessorHost(@Value('${azure.connectionString}') String connectionString,
-										  @Value('${azure.storageConnectionString}')String storageConnectionString,
-										  AzureEventHubInboundGateway recieveHandler){
-		def connStr = new ConnectionStringBuilder(connectionString)
-		def eventProcessorHost = new EventProcessorHost(
-				'poc-event-processor',
-				'test-event-hub-poc-2',
-				EventHubClient.DEFAULT_CONSUMER_GROUP_NAME,
-				connStr.toString(),
-				storageConnectionString,
-				'teststoragecontainerpoc'
-
-		)
-
-		eventProcessorHost.registerEventProcessorFactory(new IEventProcessorFactory<AzureEventHubInboundGateway>(){
-
-			@Override
-			AzureEventHubInboundGateway createEventProcessor(PartitionContext context) throws Exception {
-				recieveHandler
-			}
-		})
-		eventProcessorHost
-	}
+//	@Bean
+//	EventProcessorHost eventProcessorHost(@Value('${azure.connectionString}') String connectionString,
+//										  @Value('${azure.storageConnectionString}')String storageConnectionString,
+//										  AzureEventHubInboundGateway recieveHandler){
+//		def connStr = new ConnectionStringBuilder(connectionString)
+//		def eventProcessorHost = new EventProcessorHost(
+//				'poc-event-processor',
+//				'test-event-hub-poc-2',
+//				EventHubClient.DEFAULT_CONSUMER_GROUP_NAME,
+//				connStr.toString(),
+//				storageConnectionString,
+//				'teststoragecontainerpoc'
+//
+//		)
+//
+//		eventProcessorHost.registerEventProcessorFactory(new IEventProcessorFactory<AzureEventHubInboundGateway>(){
+//
+//			@Override
+//			AzureEventHubInboundGateway createEventProcessor(PartitionContext context) throws Exception {
+//				recieveHandler
+//			}
+//		})
+//		eventProcessorHost
+//	}
 
 //	@Bean
 //	EventHubClient eventHubClient(@Value('${azure.connectionString}') String connectionString, AzureEventHubInboundGateway recieveHandler){

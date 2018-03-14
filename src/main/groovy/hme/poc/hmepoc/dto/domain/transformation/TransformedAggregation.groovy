@@ -9,6 +9,7 @@ class TransformedAggregation {
     @Id
     String mongoId
 
+    String currentDateTimeHour
     String storeDay
     String storeUID
     String departureTime

@@ -38,8 +38,7 @@ class TransformRulesIntegrationTest extends BaseIntegrationTest {
         def result = objectMapper.readValue(text, objectMapper.getTypeFactory().constructCollectionType(List, EventRecord)) as List
         long startTime = System.currentTimeMillis()
         def transformedResult = transformer.transform(result)
-        long endTime = System.currentTimeMillis()
-        print(endTime-startTime)
+
 
         and: 'get transformed and aggregated records'
         def aggregation = transformRecordsRepository.aggregateEvents()
@@ -50,12 +49,14 @@ class TransformRulesIntegrationTest extends BaseIntegrationTest {
             it
         }
         transformedAggregationRepository.saveAll(aggregation)
+        long endTime = System.currentTimeMillis()
+        print(endTime-startTime)
 
         then: 'all ok'
         transformedResult
     }
 
     private byte[] loadJson(){
-        FileUtils.readFileToByteArray(FileUtils.toFile(this.class.classLoader.getResource('transformation.json')))
+        FileUtils.readFileToByteArray(FileUtils.toFile(this.class.classLoader.getResource('trans.json')))
     }
 }
