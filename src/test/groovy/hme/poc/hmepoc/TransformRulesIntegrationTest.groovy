@@ -2,10 +2,9 @@ package hme.poc.hmepoc
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import hme.poc.hmepoc.dto.domain.EventRecord
-import hme.poc.hmepoc.repository.TransformRecordsRepository
 import hme.poc.hmepoc.repository.TransformedAggregationRepository
-import hme.poc.hmepoc.service.DefaultTransformer
-import hme.poc.hmepoc.service.InputTransformer
+import hme.poc.hmepoc.service.MessageProducingPort
+import hme.poc.hmepoc.service.MessageStoragePort
 import org.apache.commons.io.FileUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ActiveProfiles
@@ -14,10 +13,10 @@ import org.springframework.test.context.ActiveProfiles
 class TransformRulesIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
-    private InputTransformer transformer
+    private MessageStoragePort messageStoragePort
 
     @Autowired
-    private TransformRecordsRepository transformRecordsRepository
+    private MessageProducingPort messageProducingPort
 
     @Autowired
     private TransformedAggregationRepository transformedAggregationRepository
@@ -30,33 +29,34 @@ class TransformRulesIntegrationTest extends BaseIntegrationTest {
         and: 'a valid objectMapper'
         def objectMapper = new ObjectMapper()
 
-        and: 'a valid transformer'
-        assert transformer
+        and: 'a valid messageStoragePort'
+        assert messageStoragePort
+
+        and: 'a valid producer'
+        assert messageProducingPort
 
         when: 'convert to objects'
 
         def result = objectMapper.readValue(text, objectMapper.getTypeFactory().constructCollectionType(List, EventRecord)) as List
         long startTime = System.currentTimeMillis()
-        def transformedResult = transformer.transform(result)
-
+        messageStoragePort.transform(result)
 
         and: 'get transformed and aggregated records'
-        def aggregation = transformRecordsRepository.aggregateEvents()
+        def aggregation = messageStoragePort.aggregate()
 
         and: 'save aggregation'
-        aggregation.collect {
-            it.mongoId = UUID.randomUUID() as String
-            it
-        }
-        transformedAggregationRepository.saveAll(aggregation)
-        long endTime = System.currentTimeMillis()
+        messageProducingPort.produce( aggregation )
+        long  endTime = System.currentTimeMillis()
         print(endTime-startTime)
 
+        and: 'get aggregations'
+        def aggregations = transformedAggregationRepository.findAll()
+
         then: 'all ok'
-        transformedResult
+        aggregations
     }
 
     private byte[] loadJson(){
-        FileUtils.readFileToByteArray(FileUtils.toFile(this.class.classLoader.getResource('trans.json')))
+        FileUtils.readFileToByteArray(FileUtils.toFile(this.class.classLoader.getResource('transformation.json')))
     }
 }

@@ -1,20 +1,12 @@
 package hme.poc.hmepoc.repository
 
-import hme.poc.hmepoc.dto.MongoDBTestMessage
-import hme.poc.hmepoc.dto.Pair
-import hme.poc.hmepoc.dto.Statistic
 import hme.poc.hmepoc.dto.domain.transformation.TransformedAggregation
 import hme.poc.hmepoc.dto.domain.transformation.TransformedRecord
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.MongoOperations
 import org.springframework.data.mongodb.core.aggregation.Aggregation
-import org.springframework.data.mongodb.core.aggregation.AggregationResults
-import org.springframework.data.mongodb.core.query.Query
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort
 
 class TransformRecordsRepositoryExtensionImpl implements TransformRecordsRepositoryExtension {
 
@@ -22,23 +14,40 @@ class TransformRecordsRepositoryExtensionImpl implements TransformRecordsReposit
     private MongoOperations mongoOperations
 
     @Override
+    void saveToCollection( final List<TransformedRecord> records, final String collectionName ) {
+        mongoOperations.insert(records, collectionName)
+    }
+
+    @Override
     List<TransformedAggregation> aggregateEvents() {
+
+        mongoOperations.aggregate(createAggregation(), TransformedRecord, TransformedAggregation) as List
+    }
+
+    @Override
+    List<TransformedAggregation> aggregateEvents( final String collectionName ) {
+        mongoOperations.aggregate(createAggregation(), collectionName, TransformedAggregation) as List
+    }
+
+    private static Aggregation createAggregation() {
 
         def eventsGroup = group(
                 'storeUID',
                 'departureTime',
-                'totalTimeInLine',
+                'totalTimeInLane',
                 'type',
                 'storeNumber',
                 'daypartIndex',
                 'storeDay',
+                'arrivalTime',
                 'firstJobProcessedTime',
                 'currentDateTimeHour',
                 'partitionId'
         )
                 .addToSet('storeUID').as('storeUID')
                 .addToSet('departureTime').as('departureTime')
-                .addToSet('totalTimeInLine').as('totalTimeInLine')
+                .addToSet('arrivalTime').as('arrivalTime')
+                .addToSet('totalTimeInLane').as('totalTimeInLane')
                 .addToSet('type').as('type')
                 .addToSet('storeNumber').as('storeNumber')
                 .addToSet('daypartIndex').as('daypartIndex')
@@ -127,9 +136,6 @@ class TransformRecordsRepositoryExtensionImpl implements TransformRecordsReposit
                 .max('detectorEvents.pickupWindow.value').as('pickupWindow')
                 .max('detectorEvents.waitArea.value').as('waitArea')
 
-
-
-        def aggregation = Aggregation.newAggregation( eventsGroup )
-        mongoOperations.aggregate(aggregation, TransformedRecord, TransformedAggregation) as List
+         Aggregation.newAggregation( eventsGroup )
     }
 }

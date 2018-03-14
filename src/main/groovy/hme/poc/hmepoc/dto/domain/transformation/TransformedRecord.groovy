@@ -10,7 +10,7 @@ class TransformedRecord {
     String currentDateTimeHour
     String storeUID
     String departureTime
-    Long totalTimeInLine
+    Long totalTimeInLane
     String type
     String storeNumber
     Long daypartIndex
