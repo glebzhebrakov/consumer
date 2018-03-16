@@ -41,9 +41,9 @@ class AzureEventHubInboundGateway implements MessageConsumingPort, /*PartitionRe
 
     @Override
     void receive( final List<EventRecord> records ) {
-//        def collectionName = UUID.randomUUID() as String
-//        storagePort.transform( records, collectionName )
-//        messageProducingPort.produce( storagePort.aggregate(collectionName) )
+        def collectionName = UUID.randomUUID() as String
+        storagePort.transform( records, collectionName )
+        messageProducingPort.produce( storagePort.aggregate(collectionName) )
     }
 //    @Override
 //    int getMaxEventCount() {
@@ -82,9 +82,11 @@ class AzureEventHubInboundGateway implements MessageConsumingPort, /*PartitionRe
 //                it
 //            }
 //        })
-//        receive(events.collect {
-//            objectMapper.readValue(it.bytes, EventRecord)
-//        })
+        receive(events.collect {
+            objectMapper.readValue(it.bytes, EventRecord)
+        })
+        logger.info('# endevents')
+
     }
 
 //    @PostConstruct

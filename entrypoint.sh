@@ -7,8 +7,7 @@ CMD="java \
     -XX:MinHeapFreeRatio=20 \
     -XX:MaxHeapFreeRatio=40 \
     -XX:GCTimeRatio=4 \
-    -XX:AdaptiveSizePolicyWeight=90
-    -Dspring.profiles.active=azure,mongodb \
+    -XX:AdaptiveSizePolicyWeight=90 \
     $*"
 
 echo ${CMD}
